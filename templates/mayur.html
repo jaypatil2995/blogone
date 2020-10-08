@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+<body>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>blog</title>
+</head>
+<body>
+    <div id="content">
+	</div>
+    <div id="sidebar">
+        <h2>My	blog</h2>
+        <p>This	is	my	blog.</p>
+	</div>
+
+</body>
+</html>
+
+
+list.html
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Blog</title>
+</head>
+<body>
+    <h1>My	Blog</h1>
+    {%  for	post in	posts %}
+        <h2>
+        <a	href="{{	post.get_absolute_url	}}">
+        {{	post.title	}}
+        </a>
+        </h2>
+        <p	class="date">
+        Published	{{	post.publish	}}	by	{{	post.author	}}
+        </p>
+        {{	post.body|truncatewords:30|linebreaks	}}
+    {%	endfor	%}
+
+</body>
+</html>
+	from	django.core.mail	import	send_mail
+>>>	send_mail('Django	mail',	'This	e-mail	was	sent	with	Django.',
+'your_account@gmail.com',	['your_account@gmail.com'],	fail_silently=False)
+
+
+
+{% block content %}
+
+      {% if sent %}
+            <h1>E-mail successfully   sent</h1>
+            <p>
+                  "{{post.title }}" was successfully sent to {{ form.cleaned_data.to }}.
+            </p>
+      {% else   %}
+            <h1>Share "{{ post.title }}" by e-mail</h1>
+            <form  action="." method="post">
+                {% csrf_token %}
+
+                    Name<input type="text" name="name">
+                    Email<input type="Email" name="email">
+                    To<input type="Email" name="to">
+                    Comments<input type="text" name="comments">
+                  <input type="submit"  value="Send e-mail">
+            </form>
+      {% endif  %}
+
+      {% for field	in	form %}
+		    <div>
+				{{	field.errors	}}
+				{{	field.label_tag	}}	{{	field	}}
+		    </div>
+      {%	endfor	%}
+{% endblock   %}
+
+
